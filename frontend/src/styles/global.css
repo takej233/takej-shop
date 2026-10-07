@@ -1,0 +1,155 @@
+/* ============================================================
+   全局主题：把 Element Plus 的默认蓝改成电商橙，
+   并统一页面背景、卡片、圆角、容器宽度。
+   所有页面共用，不要在组件里再重复写这些基础值。
+   ============================================================ */
+
+:root {
+  /* 品牌色：主色橙（按钮、导航高亮） */
+  --tk-brand: #ff5000;
+  --tk-brand-hover: #ff6a1a;
+  --tk-brand-active: #e04600;
+  /* 价格红：比品牌色更红，符合国内电商"价格用红"的习惯 */
+  --tk-price: #ff0036;
+
+  --tk-bg: #f5f5f5;
+  --tk-panel: #ffffff;
+  --tk-text: #333333;
+  --tk-text-sub: #999999;
+  --tk-text-weak: #c0c4cc;
+  --tk-border: #eeeeee;
+
+  --tk-radius: 8px;
+  --tk-container: 1200px;
+  --tk-header-h: 60px;
+
+  /* ---- 覆盖 Element Plus 主色（含所有派生色，否则 hover 还是蓝的） ---- */
+  --el-color-primary: #ff5000;
+  --el-color-primary-light-3: #ff854d;
+  --el-color-primary-light-5: #ffa880;
+  --el-color-primary-light-7: #ffcbb3;
+  --el-color-primary-light-8: #ffdccc;
+  --el-color-primary-light-9: #ffeee6;
+  --el-color-primary-dark-2: #cc4000;
+
+  --el-border-radius-base: 6px;
+  --el-font-size-base: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--tk-bg);
+  color: var(--tk-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei',
+    'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------------- 通用布局类 ---------------- */
+
+/* 页面最外层：浅灰底 */
+.tk-page {
+  min-height: 100vh;
+  background: var(--tk-bg);
+}
+
+/* 内容居中容器：所有页面统一 1200px，视觉才不会左右打架 */
+.tk-container {
+  width: 100%;
+  max-width: var(--tk-container);
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* 白色内容面板 */
+.tk-panel {
+  background: var(--tk-panel);
+  border-radius: var(--tk-radius);
+  padding: 20px;
+}
+
+/* 区块标题：左侧一条品牌色竖线，和淘宝/京东的模块标题一致 */
+.tk-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--tk-text);
+}
+.tk-title::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--tk-brand);
+}
+
+.tk-price {
+  color: var(--tk-price);
+  font-weight: 600;
+}
+
+/* 主按钮：橙色渐变，比纯色更有"平台感" */
+.tk-btn-main {
+  background: linear-gradient(135deg, #ff6a1a, #ff2b00);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.tk-btn-main:hover,
+.tk-btn-main:focus {
+  background: linear-gradient(135deg, #ff7d33, #ff3d1a);
+  border: none;
+  color: #fff;
+}
+.tk-btn-main.is-disabled,
+.tk-btn-main.is-disabled:hover {
+  background: #ffcbb3;
+  color: #fff;
+  border: none;
+}
+
+/* 商品主图占位：没有图片时的灰色底 */
+.tk-thumb-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  color: var(--tk-text-weak);
+  font-size: 13px;
+}
+
+/* 让 el-card 默认白底圆角，不要再各自写一遍 */
+.el-card {
+  border-radius: var(--tk-radius);
+  border: 1px solid var(--tk-border);
+}
+
+/* 表格头浅灰底，接近后台/订单页的平台风格 */
+.el-table th.el-table__cell {
+  background: #fafafa !important;
+  color: #666;
+  font-weight: 600;
+}

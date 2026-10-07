@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: mall-user
+
+  profiles:
+    active: local
+
+server:
+  port: 9002
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never

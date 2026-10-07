@@ -1,0 +1,10 @@
+.idea/
+*.iml
+**/target/
+# 本地 profile 配置：含数据库密码、JWT 密钥，一律不入库。
+# 这里用通配而不是精确文件名，是为了兜住历史上出现过的两种写法：
+# application-loacl.yml（拼写错误）和 application-local（漏了后缀），
+# 它们当时都绕过了原来的 **/application-local.yml 规则。
+**/application-*.yml
+**/application-*.yaml
+**/application-local

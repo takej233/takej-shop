@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: mall-gateway
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 2s
+
+  cloud:
+    gateway:
+      routes:
+        # 认证服务路由：把 /api/auth/** 转发到 9001 端口
+        - id: mall-auth
+          uri: http://localhost:9001
+          predicates:
+            - Path=/api/auth/**
+        # 用户服务路由：把 /api/user/** 转发到 9002
+        - id: mall-user
+          uri: http://localhost:9002
+          predicates:
+            - Path=/api/user/**
+        # 商品服务路由：把 /api/products/** 转发到 9003
+        - id: mall-product
+          uri: http://localhost:9003
+          predicates:
+            - Path=/api/products/**
+        # 购物车服务路由：把 /api/cart/** 转发到 9004
+        - id: mall-cart
+          uri: http://localhost:9004
+          predicates:
+            - Path=/api/cart/**
+        # 订单服务路由：/api/orders/** 请求转发到 mall-order 的 9005 端口
+        - id: mall-order
+          uri: http://localhost:9005
+          predicates:
+            - Path=/api/orders/**
+
+        # 后台管理服务路由：/api/admin/** 转发到 mall-admin 的 9006 端口
+        - id: mall-admin
+          uri: http://localhost:9006
+          predicates:
+            - Path=/api/admin/**
+
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+# 网关解析 JWT 时使用，必须与 mall-auth 保持完全一致
+takej:
+  jwt:
+    secret: takej-local-jwt-secret-key-must-be-at-least-32
